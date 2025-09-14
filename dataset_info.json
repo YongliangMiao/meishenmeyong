@@ -1,0 +1,16 @@
+{
+  "my_custom_dataset": {
+    "file_name": "output.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
+  }
+}
+
+
+
+
+
+
