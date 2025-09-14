@@ -1,0 +1,47 @@
+model_name_or_path: Qwen/Qwen2.5-Math-7B
+stage: sft
+do_train: true
+finetuning_type: full
+deepspeed: examples/deepspeed/dataselect_ds_z1_config.json  ###########    这里和之前的训练保持一致    deepseed zero1  ################################
+
+# 数据设置
+dataset: my_custom_dataset
+
+dataset_dir: /data
+template: qwen
+cutoff_len: 16384
+overwrite_cache: true
+preprocessing_num_workers: 1
+
+
+# 输出设置
+output_dir: /data
+logging_dir: /data/logs
+report_to: "none"
+
+
+logging_steps: 1
+save_steps: 1000        #########################  1000steps 存一次ckpt
+save_total_limit: 1
+plot_loss: true
+overwrite_output_dir: true
+
+# 训练参数
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 4
+learning_rate: 5.0e-5
+num_train_epochs: 3.0                 
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+
+
+# 高级优化
+flash_attn: fa2
+enable_liger_kernel: true
+use_unsloth_gc: true
+gradient_checkpointing: true
+disable_gradient_checkpointing: false
+torch_empty_cache_steps: 10
